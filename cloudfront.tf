@@ -1,3 +1,9 @@
+locals {
+  all: "allow-all"
+  https: "https-only",
+  redirect_http: "redirect-to-https",
+}
+
 resource "aws_cloudfront_distribution" "main" {
   for_each = var.deploy_with_cloudfront == true ? toset(var.domains) : []
 
@@ -35,7 +41,7 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = locals[var.protocol]
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
@@ -51,8 +57,8 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   tags = {
-    Description = "Cloud fron for Websites"
-    Environment = "build"
+    Description = "Website for ${aws_s3_bucket.main[each.value].id}"
+    Environment = var.env
   }
 
   viewer_certificate {

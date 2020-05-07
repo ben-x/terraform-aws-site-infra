@@ -23,3 +23,9 @@ variable "waf_arn" {
   type = string
   default = null
 }
+
+variable "protocol" {
+  description = "Which protocol to use"
+  type = string
+  default = "redirect_http"
+}
