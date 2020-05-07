@@ -6,7 +6,7 @@ This project provides the config to setup an infrastructure of a static website 
 ```
 module "site" {
   source = "./terraform-aws-site-infra"
-  domains = ["site.com""]
+  domains = ["site.com"]
   ssl_certificate_arn = "arn:aws:wafv2:us-east-1:1234567834:global/webacl/site-waf/93f2fe8f-223c-48ad-2387-0e0fea2c4a6c"
   deploy_with_cloudfront = false
   protocol = "redirect_http"
